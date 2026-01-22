@@ -33,16 +33,13 @@ def download():
             'restrictfilenames': True,
         }
 
-        # Lógica de Cookies Inteligente
+        # Lógica de Cookies Segura
+        # Apenas usa cookies.txt se o arquivo existir explicitamente na pasta do projeto.
+        # NUNCA tenta extrair automaticamente do navegador para evitar falhas de segurança e travamentos.
         cookie_file = os.path.join(os.getcwd(), 'cookies.txt')
         
-        # 1. Se existir o arquivo cookies.txt (no PC ou Servidor), usa ele
         if os.path.exists(cookie_file):
             ydl_opts['cookiefile'] = cookie_file
-        # 2. Se NÃO tiver arquivo E estivermos no Windows (PC Local), tenta usar o navegador
-        # (Render roda em Linux, então isso evita o erro lá)
-        elif os.name == 'nt': 
-            ydl_opts['cookiesfrombrowser'] = ('chrome',)
 
         if formato == 'video':
             ydl_opts['format'] = 'best[ext=mp4][protocol^=http]/best[ext=mp4]/best'

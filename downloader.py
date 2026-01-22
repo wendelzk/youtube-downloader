@@ -25,10 +25,17 @@ def main():
     ydl_opts = {
         'outtmpl': os.path.join(pasta_downloads, '%(title)s.%(ext)s'),
         'noplaylist': True,
-        # Adicione esta linha para usar cookies do seu navegador (Chrome, Firefox, Edge, etc)
-        # Isso autentica o download como se fosse seu usuário real
-        'cookiesfrombrowser': ('chrome',), 
     }
+
+    # SEGURANÇA: Só carrega cookies se o arquivo existir LOCALMENTE.
+    # Não forçamos o uso do navegador para evitar erros e riscos desnecessários.
+    caminho_cookies = os.path.join(os.getcwd(), 'cookies.txt')
+    if os.path.exists(caminho_cookies):
+        print("Aviso: Usando arquivo de cookies.txt para autenticação.")
+        ydl_opts['cookiefile'] = caminho_cookies
+    
+    # Se quiser testar sem login (mais seguro e padrão), não precisa fazer nada.
+    # O yt-dlp tentará baixar anonimamente primeiro.
 
     if opcao == '2':
         # Tenta evitar HLS/m3u8 que costuma dar erro de fragmento
