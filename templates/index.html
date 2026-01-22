@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube Downloader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>YouTube Downloader</h1>
+        <p>Baixe áudio ou vídeo do YouTube simples e rápido.</p>
+
+        <div class="input-group">
+            <input type="text" id="videoLink" placeholder="Cole o link do YouTube aqui..." autocomplete="off">
+        </div>
+
+        <div class="options-group">
+            <label>
+                <input type="radio" name="format" value="audio" checked>
+                Áudio (MP3/Best)
+            </label>
+            <label>
+                <input type="radio" name="format" value="video">
+                Vídeo (MP4)
+            </label>
+        </div>
+
+        <button id="downloadBtn" onclick="iniciarDownload()">Baixar no Servidor</button>
+
+        <div id="status" class="status-message"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+</body>
+
+</html>
