@@ -19,20 +19,18 @@ def main():
             break
         print("Opção inválida. Tente digitar 1 ou 2.")
 
-    # Define pasta Downloads
+   
     pasta_downloads = os.path.join(os.path.expanduser('~'), 'Downloads')
     
     ydl_opts = {
         'outtmpl': os.path.join(pasta_downloads, '%(title)s.%(ext)s'),
         'noplaylist': True,
-        # Adicione esta linha para usar cookies do seu navegador (Chrome, Firefox, Edge, etc)
-        # Isso autentica o download como se fosse seu usuário real
+  
         'cookiesfrombrowser': ('chrome',), 
     }
 
     if opcao == '2':
-        # Tenta evitar HLS/m3u8 que costuma dar erro de fragmento
-        # Prioriza streams HTTP diretos (progressivos) em MP4
+  
         ydl_opts['format'] = 'best[ext=mp4][protocol^=http]/best[ext=mp4]/best'
         print(f"O vídeo será salvo em: {pasta_downloads}")
     else:
