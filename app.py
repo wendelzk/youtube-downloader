@@ -6,7 +6,7 @@ import time
 
 app = Flask(__name__)
 
-# Configura pasta temporária
+
 DOWNLOAD_FOLDER = os.path.join(os.getcwd(), 'downloads_tmp')
 if not os.path.exists(DOWNLOAD_FOLDER):
     os.makedirs(DOWNLOAD_FOLDER)
@@ -33,14 +33,13 @@ def download():
             'restrictfilenames': True,
         }
 
-        # Lógica de Cookies Inteligente
+   
         cookie_file = os.path.join(os.getcwd(), 'cookies.txt')
         
-        # 1. Se existir o arquivo cookies.txt (no PC ou Servidor), usa ele
+     
         if os.path.exists(cookie_file):
             ydl_opts['cookiefile'] = cookie_file
-        # 2. Se NÃO tiver arquivo E estivermos no Windows (PC Local), tenta usar o navegador
-        # (Render roda em Linux, então isso evita o erro lá)
+  
         elif os.name == 'nt': 
             ydl_opts['cookiesfrombrowser'] = ('chrome',)
 
@@ -54,7 +53,6 @@ def download():
             info_dict = ydl.extract_info(video_link, download=True)
             filename = ydl.prepare_filename(info_dict)
 
-        # Fallback para encontrar o arquivo caso o nome mude ligeiramente
         if not os.path.exists(filename):
             list_of_files = glob.glob(os.path.join(DOWNLOAD_FOLDER, '*'))
             if list_of_files:
